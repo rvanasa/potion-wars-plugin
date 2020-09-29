@@ -1,6 +1,7 @@
 package com.potionwars;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionData;
 
 import java.util.Random;
@@ -34,6 +35,8 @@ public final class PotionGenerator {
 		for(SpecialPotionStat stat : SpecialPotionStat.values()) {
 			childPotion.setStat(stat, ((RANDOM.nextFloat() * a.getStat(stat) + RANDOM.nextFloat() * b.getStat(stat)) * STAT_SCALE * (1 - MIN_STAT)) + MIN_STAT  /*RANDOM.nextBoolean() ? a.getStat(stat) : b.getStat(stat)*/);
 		}
+
+
 
 		return childPotion;
 	}

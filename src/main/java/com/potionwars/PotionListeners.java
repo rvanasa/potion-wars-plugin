@@ -7,11 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class PotionListeners implements Listener {
 
@@ -64,12 +62,7 @@ public class PotionListeners implements Listener {
 
 				SpecialPotion potion = PotionGenerator.generatePotion(event.getItem().getType());
 
-				ItemStack item = new ItemStack(Material.POTION);
-				item.setLore(potion.getStats().entrySet().stream()
-						.filter(kv -> kv.getValue() > 0)
-						.map(kv -> String.format("%s: %.1f", kv.getKey().getDisplayName(), kv.getValue()))
-						.collect(Collectors.toList()));
-				item.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+				ItemStack item = PotionStacker.createPotionItemStack(potion);
 
 				event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), item);
 			}
