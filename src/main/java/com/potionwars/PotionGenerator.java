@@ -10,7 +10,6 @@ public final class PotionGenerator {
 
 	private static final Random RANDOM = new Random();
 
-	private static final float MIN_STAT = .1F;
 	private static final float STAT_SCALE = .8F;
 
 	public static SpecialPotion generatePotion(Material material) {
@@ -21,7 +20,7 @@ public final class PotionGenerator {
 		SpecialPotionStat[] stats = SpecialPotionStat.values();
 		SpecialPotionStat stat = stats[random.nextInt(stats.length)];
 
-		potion.setStat(stat, (random.nextFloat() * (1 - MIN_STAT)) + MIN_STAT);
+		potion.setStat(stat, random.nextFloat());
 
 		return potion;
 	}
@@ -33,10 +32,8 @@ public final class PotionGenerator {
 
 		// Loop through all stats and randomly select properties
 		for(SpecialPotionStat stat : SpecialPotionStat.values()) {
-			childPotion.setStat(stat, ((RANDOM.nextFloat() * a.getStat(stat) + RANDOM.nextFloat() * b.getStat(stat)) * STAT_SCALE * (1 - MIN_STAT)) + MIN_STAT  /*RANDOM.nextBoolean() ? a.getStat(stat) : b.getStat(stat)*/);
+			childPotion.setStat(stat, ((RANDOM.nextFloat() * a.getStat(stat) + RANDOM.nextFloat() * b.getStat(stat)) * STAT_SCALE)   /*RANDOM.nextBoolean() ? a.getStat(stat) : b.getStat(stat)*/);
 		}
-
-
 
 		return childPotion;
 	}

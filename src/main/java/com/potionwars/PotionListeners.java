@@ -31,33 +31,33 @@ public class PotionListeners implements Listener {
 					.getNearbyEntitiesByType(Item.class, Objects.requireNonNull(event.getClickedBlock()).getLocation(), .8)
 					.toArray(new Item[0]);
 
-//			if(items.length >= 2) {
-//				Item a = items[0];
-//				Item b = items[1];
-//
-//				a.remove();
-//				b.remove();
-//
-//				Objects.requireNonNull(event.getItem()).subtract(1);
-//
-//				//				SpecialPotion potion = new SpecialPotion(123);
-//				//				potion.setStat(SpecialPotionStat.JUMP, 1);
-//				//				potion.setStat(SpecialPotionStat.POISON, .2122345775F);
-//				//				potion.setStat(SpecialPotionStat.EXPLOSIVE_RADIUS, 12.1235F);
-//
-//				SpecialPotion potion = PotionGenerator.generatePotion(event.getItem().getType());
-//
-//				//				SpecialPotion potion = PotionGenerator.generatePotion(a..., b...);
-//
-//				ItemStack item = new ItemStack(Material.POTION);
-//				item.setLore(potion.getStats().entrySet().stream()
-//						.filter(kv -> kv.getValue() > 0)
-//						.map(kv -> String.format("%s: %.1f", kv.getKey().getDisplayName(), kv.getValue()))
-//						.collect(Collectors.toList()));
-//				item.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-//
-//				event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), item);
-//			}
+			//			if(items.length >= 2) {
+			//				Item a = items[0];
+			//				Item b = items[1];
+			//
+			//				a.remove();
+			//				b.remove();
+			//
+			//				Objects.requireNonNull(event.getItem()).subtract(1);
+			//
+			//				//				SpecialPotion potion = new SpecialPotion(123);
+			//				//				potion.setStat(SpecialPotionStat.JUMP, 1);
+			//				//				potion.setStat(SpecialPotionStat.POISON, .2122345775F);
+			//				//				potion.setStat(SpecialPotionStat.EXPLOSIVE_RADIUS, 12.1235F);
+			//
+			//				SpecialPotion potion = PotionGenerator.generatePotion(event.getItem().getType());
+			//
+			//				//				SpecialPotion potion = PotionGenerator.generatePotion(a..., b...);
+			//
+			//				ItemStack item = new ItemStack(Material.POTION);
+			//				item.setLore(potion.getStats().entrySet().stream()
+			//						.filter(kv -> kv.getValue() > 0)
+			//						.map(kv -> String.format("%s: %.1f", kv.getKey().getDisplayName(), kv.getValue()))
+			//						.collect(Collectors.toList()));
+			//				item.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+			//
+			//				event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), item);
+			//			}
 
 			if(items.length >= 1) {
 				Item source = items[0];
@@ -76,7 +76,7 @@ public class PotionListeners implements Listener {
 	}
 
 	@EventHandler
-	public void OnPotionSplash(PotionSplashEvent event){
+	public void OnPotionSplash(PotionSplashEvent event) {
 		Random random = new Random();
 
 		SpecialPotion randomPotion = new SpecialPotion(1234);
@@ -86,14 +86,13 @@ public class PotionListeners implements Listener {
 		randomPotion.setStat(SpecialPotionStat.JUMP, random.nextFloat());
 
 		event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(),
-				randomPotion.getStat(SpecialPotionStat.EXPLOSIVE_RADIUS)*5,
-				randomPotion.getStat(SpecialPotionStat.FLAMMABILITY)>0.5,
+				randomPotion.getStat(SpecialPotionStat.EXPLOSIVE_RADIUS) * 5,
+				randomPotion.getStat(SpecialPotionStat.FLAMMABILITY) > 0.5,
 				true);
 
-		for(LivingEntity i: event.getAffectedEntities()){
-			i.setVelocity(new Vector().setY(randomPotion.getStat(SpecialPotionStat.JUMP)*10));
+		for(LivingEntity i : event.getAffectedEntities()) {
+			i.setVelocity(new Vector().setY(randomPotion.getStat(SpecialPotionStat.JUMP) * 10));
 		}
-
 
 	}
 }
