@@ -2,15 +2,19 @@ package com.potionwars;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class PotionListeners implements Listener {
@@ -64,7 +68,7 @@ public class PotionListeners implements Listener {
 
 				SpecialPotion potion = PotionGenerator.generatePotion(event.getItem().getType());
 
-				ItemStack item = new ItemStack(Material.POTION);
+				ItemStack item = new ItemStack(Material.SPLASH_POTION);
 				item.setLore(potion.getStats().entrySet().stream()
 						.filter(kv -> kv.getValue() > 0)
 						.map(kv -> String.format("%s: %.1f", kv.getKey().getDisplayName(), kv.getValue()))
@@ -74,6 +78,29 @@ public class PotionListeners implements Listener {
 				event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), item);
 			}
 		}
+
+	}
+
+	@EventHandler
+	public void OnPotionSplash(PotionSplashEvent event){
+		Random random = new Random();
+
+		SpecialPotion randomPotion = new SpecialPotion(1234);
+
+		randomPotion.setStat(SpecialPotionStat.EXPLOSIVE_RADIUS, random.nextFloat());
+		randomPotion.setStat(SpecialPotionStat.FLAMMABILITY, random.nextFloat());
+		randomPotion.setStat(SpecialPotionStat.JUMP, random.nextFloat());
+
+		event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(),
+				randomPotion.getStat(SpecialPotionStat.EXPLOSIVE_RADIUS)*5,
+				randomPotion.getStat(SpecialPotionStat.FLAMMABILITY)>0.5,
+				true);
+
+		for(LivingEntity i: event.getAffectedEntities()){
+			i.setVelocity(new Vector().setY(randomPotion.getStat(SpecialPotionStat.JUMP)*10));
+		}
+
+
 
 	}
 }
