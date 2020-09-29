@@ -11,9 +11,9 @@ public class BuildHandler {
 
 	public static void main(String[] argv) throws Exception {
 
-		File messageDir = new File(argv[0], "messages");
-		messageDir.mkdir();
-		new File(messageDir, "HALT").createNewFile();
+//		File messageDir = new File(argv[0], "messages");
+//		messageDir.mkdir();
+//		new File(messageDir, "HALT").createNewFile();
 
 		new YamlFileBuilder()
 				.add(new YamlComponent("name", PotionWarsPlugin.NAME))

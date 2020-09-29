@@ -1,2 +1,3 @@
-/target/
-/server/
+.idea
+/target
+/server

@@ -1,7 +1,6 @@
 package com.potionwars;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
@@ -9,7 +8,6 @@ import org.bukkit.metadata.Metadatable;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.Objects;
 
 public class PotionWarsPlugin extends JavaPlugin {
 	public boolean hasMetadata(Metadatable object, String key) {
@@ -20,11 +18,11 @@ public class PotionWarsPlugin extends JavaPlugin {
 		return String.valueOf(getMetadata(object, key, String.class));
 	}
 
-	public <T> T getMetadata(Metadatable object, String key, Class<T> clazz) {
+	public <T> T getMetadata(Metadatable object, String key, Class<T> cls) {
 		for(MetadataValue meta : object.getMetadata(key)) {
 			if(meta.getOwningPlugin() == this) {
-				if(clazz.isInstance(meta.value())) {
-					return clazz.cast(meta.value());
+				if(cls.isInstance(meta.value())) {
+					return cls.cast(meta.value());
 				}
 			}
 		}
@@ -52,18 +50,18 @@ public class PotionWarsPlugin extends JavaPlugin {
 		INSTANCE = this;
 		try {
 
-			File[] messageFiles = MESSAGE_DIR.listFiles();
-			if(messageFiles != null) {
-				for(File file : messageFiles) {
-					file.delete();
-				}
-			}
-			getServer().getScheduler().scheduleSyncRepeatingTask(getInstance(), () -> {
-				File messageFile = new File(MESSAGE_DIR, "HALT");
-				if(messageFile.exists()) {
-					Bukkit.shutdown();
-				}
-			}, 0, 20);
+			//			File[] messageFiles = MESSAGE_DIR.listFiles();
+			//			if(messageFiles != null) {
+			//				for(File file : messageFiles) {
+			//					file.delete();
+			//				}
+			//			}
+			//			getServer().getScheduler().scheduleSyncRepeatingTask(getInstance(), () -> {
+			//				File messageFile = new File(MESSAGE_DIR, "HALT");
+			//				if(messageFile.exists()) {
+			//					Bukkit.shutdown();
+			//				}
+			//			}, 0, 20);
 
 			getServer().getPluginManager().registerEvents(new PotionListeners(), this);
 

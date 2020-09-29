@@ -1,30 +1,32 @@
 package com.potionwars;
 
-import org.bukkit.potion.PotionData;
-
 import java.util.EnumMap;
 import java.util.Map;
 
-
 public class SpecialPotion {
 
-    private final Map<SpecialPotionStat, Float> stats = new EnumMap<>(SpecialPotionStat.class);
+	private final Map<SpecialPotionStat, Float> stats = new EnumMap<>(SpecialPotionStat.class);
 
-    private final int seed;
-    SpecialPotion(int seed){
-        this.seed = seed;
-    }
+	private final int seed;
 
-    public int getSeed() {
-        return seed;
-    }
+	SpecialPotion(int seed) {
+		this.seed = seed;
+	}
 
-    public float getStat(SpecialPotionStat stat) {
-        return stats.getOrDefault(stat,0f);
-    }
+	public int getSeed() {
+		return seed;
+	}
 
-    public void setStat(SpecialPotionStat stat, float value){
-        stats.put(stat,value);
-    }
+	public Map<SpecialPotionStat, Float> getStats() {
+		return stats;
+	}
+
+	public float getStat(SpecialPotionStat stat) {
+		return stats.getOrDefault(stat, 0f);
+	}
+
+	public void setStat(SpecialPotionStat stat, float value) {
+		stats.put(stat, value);
+	}
 
 }
