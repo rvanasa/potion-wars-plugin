@@ -1,38 +1,34 @@
 package com.potionwars;
 
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionData;
 
 import java.util.Random;
 
 public final class PotionGenerator {
 
-	private static final Random RANDOM = new Random();
-
 	private static final float STAT_SCALE = .8F;
 
-	public static SpecialPotion generatePotion(Material material) {
-		Random random = new Random();
+	public static Potion generatePotion(Material material) {
+		Random random = new Random(material.name().hashCode());
 
-		SpecialPotion potion = new SpecialPotion(random.nextInt());
+		Potion potion = new Potion(random.nextInt());
 
-		SpecialPotionStat[] stats = SpecialPotionStat.values();
-		SpecialPotionStat stat = stats[random.nextInt(stats.length)];
+		PotionStat[] stats = PotionStat.values();
+		PotionStat stat = stats[random.nextInt(stats.length)];
 
 		potion.setStat(stat, random.nextFloat());
 
 		return potion;
 	}
 
-	public static SpecialPotion generatePotion(SpecialPotion a, SpecialPotion b) {
-		RANDOM.setSeed(a.getSeed() ^ b.getSeed());
+	public static Potion generatePotion(Potion a, Potion b) {
+		Random random = new Random(a.getSeed() ^ b.getSeed());
 
-		SpecialPotion childPotion = new SpecialPotion(RANDOM.nextInt());
+		Potion childPotion = new Potion(random.nextInt());
 
 		// Loop through all stats and randomly select properties
-		for(SpecialPotionStat stat : SpecialPotionStat.values()) {
-			childPotion.setStat(stat, ((RANDOM.nextFloat() * a.getStat(stat) + RANDOM.nextFloat() * b.getStat(stat)) * STAT_SCALE)   /*RANDOM.nextBoolean() ? a.getStat(stat) : b.getStat(stat)*/);
+		for(PotionStat stat : PotionStat.values()) {
+			childPotion.setStat(stat, ((random.nextFloat() * a.getStat(stat) + random.nextFloat() * b.getStat(stat)) * STAT_SCALE)   /*RANDOM.nextBoolean() ? a.getStat(stat) : b.getStat(stat)*/);
 		}
 
 		return childPotion;

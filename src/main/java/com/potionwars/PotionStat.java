@@ -1,6 +1,6 @@
 package com.potionwars;
 
-public enum SpecialPotionStat {
+public enum PotionStat {
 	EXPLOSIVE_RADIUS("Explosive Force"),
 	FLAMMABILITY("Flammability"),
 	POISON("Poison"),
@@ -11,7 +11,7 @@ public enum SpecialPotionStat {
 
 	private final String displayName;
 
-	SpecialPotionStat(String displayName) {
+	PotionStat(String displayName) {
 		this.displayName = displayName;
 	}
 

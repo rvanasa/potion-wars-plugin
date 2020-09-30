@@ -1,6 +1,7 @@
 package com.potionwars;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -65,7 +66,7 @@ public class PotionListeners implements Listener {
 
 				Objects.requireNonNull(event.getItem()).subtract(1);
 
-				SpecialPotion potion = PotionGenerator.generatePotion(event.getItem().getType());
+				Potion potion = PotionGenerator.generatePotion(event.getItem().getType());
 
 				ItemStack item = PotionStacker.createPotionItemStack(potion);
 
@@ -79,19 +80,19 @@ public class PotionListeners implements Listener {
 	public void OnPotionSplash(PotionSplashEvent event) {
 		Random random = new Random();
 
-		SpecialPotion randomPotion = new SpecialPotion(1234);
+		Potion randomPotion = new Potion(random.nextInt());
 
-		randomPotion.setStat(SpecialPotionStat.EXPLOSIVE_RADIUS, random.nextFloat());
-		randomPotion.setStat(SpecialPotionStat.FLAMMABILITY, random.nextFloat());
-		randomPotion.setStat(SpecialPotionStat.JUMP, random.nextFloat());
+		randomPotion.setStat(PotionStat.EXPLOSIVE_RADIUS, random.nextFloat());
+		randomPotion.setStat(PotionStat.FLAMMABILITY, random.nextFloat());
+		randomPotion.setStat(PotionStat.JUMP, random.nextFloat());
 
 		event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(),
-				randomPotion.getStat(SpecialPotionStat.EXPLOSIVE_RADIUS) * 5,
-				randomPotion.getStat(SpecialPotionStat.FLAMMABILITY) > 0.5,
+				randomPotion.getStat(PotionStat.EXPLOSIVE_RADIUS) * 5,
+				randomPotion.getStat(PotionStat.FLAMMABILITY) > 0.5,
 				true);
 
 		for(LivingEntity i : event.getAffectedEntities()) {
-			i.setVelocity(new Vector().setY(randomPotion.getStat(SpecialPotionStat.JUMP) * 10));
+			i.setVelocity(new Vector().setY(randomPotion.getStat(PotionStat.JUMP) * 10));
 		}
 
 	}

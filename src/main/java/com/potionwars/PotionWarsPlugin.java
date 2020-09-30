@@ -1,6 +1,7 @@
 package com.potionwars;
 
 import jdk.nashorn.internal.ir.debug.JSONWriter;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
@@ -50,18 +51,19 @@ public class PotionWarsPlugin extends JavaPlugin {
 		INSTANCE = this;
 		try {
 
-			//			File[] messageFiles = MESSAGE_DIR.listFiles();
-			//			if(messageFiles != null) {
-			//				for(File file : messageFiles) {
-			//					file.delete();
-			//				}
-			//			}
-			//			getServer().getScheduler().scheduleSyncRepeatingTask(getInstance(), () -> {
-			//				File messageFile = new File(MESSAGE_DIR, "HALT");
-			//				if(messageFile.exists()) {
-			//					Bukkit.shutdown();
-			//				}
-			//			}, 0, 20);
+			File[] messageFiles = MESSAGE_DIR.listFiles();
+			if(messageFiles != null) {
+				for(File file : messageFiles) {
+					file.delete();
+				}
+			}
+			getServer().getScheduler().scheduleSyncRepeatingTask(getInstance(), () -> {
+				File messageFile = new File(MESSAGE_DIR, "HALT");
+				if(messageFile.exists()) {
+					messageFile.delete();
+					Bukkit.shutdown();
+				}
+			}, 0, 20);
 
 			getServer().getPluginManager().registerEvents(new PotionListeners(), this);
 
