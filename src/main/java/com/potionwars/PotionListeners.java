@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.inventory.BrewEvent;
+
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -23,12 +24,13 @@ public class PotionListeners implements Listener {
 		event.getContents().setItem(0, new ItemStack(Material.COAL_BLOCK));
 	}
 
+	/*
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 
 		if(event.getMaterial() == Material.GLASS_BOTTLE && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-			Item[] items = event.getPlayer().getWorld()
+			Item[] items = event.getPlayer().getWorld().getN
 					.getNearbyEntitiesByType(Item.class, Objects.requireNonNull(event.getClickedBlock()).getLocation(), .8)
 					.toArray(new Item[0]);
 
@@ -74,7 +76,7 @@ public class PotionListeners implements Listener {
 			}
 		}
 
-	}
+	}*/
 
 	@EventHandler
 	public void OnPotionSplash(PotionSplashEvent event) {

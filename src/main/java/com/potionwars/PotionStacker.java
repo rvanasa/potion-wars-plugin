@@ -3,8 +3,6 @@ package com.potionwars;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.SplashPotion;
-import org.bukkit.entity.ThrownPotion;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,9 +19,10 @@ public final class PotionStacker {
 	public static ItemStack createPotionItemStack(Potion potion) {
 		ItemStack item = new ItemStack(Material.SPLASH_POTION);
 
-		item.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
-		item.setLore(potion.getStats().entrySet().stream()
+		//item.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+		/*item.setLore(potion.getStats().entrySet().stream()
 				.filter(kv -> kv.getValue() > 0)
 				.map(kv -> getAttributeText(kv.getKey(), kv.getValue()))
 				.collect(Collectors.toList()));
@@ -33,6 +32,7 @@ public final class PotionStacker {
 		meta.setLocalizedName("Fancy Potion #" + potion.getSeed());
 		item.setItemMeta(meta);
 
+		return item;*/
 		return item;
 	}
 

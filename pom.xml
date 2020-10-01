@@ -12,6 +12,7 @@
         <paper.version>${minecraft.version}-R0.1-SNAPSHOT</paper.version>
         <server.path>${project.basedir}/server</server.path>
     </properties>
+
     <repositories>
         <repository>
             <id>papermc</id>
@@ -39,6 +40,11 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/lang</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
